@@ -1,7 +1,6 @@
-<nz-table #table [nzShowPagination]="false" [nzData]="transactionData">
+<nz-table #table [nzShowPagination]="true" [nzData]="transactionData">
   <thead>
     <tr>
-      <th>Id</th>
       <th>Action</th>
       <th>Number Of Tokens used or buy</th>
       <th>Balance Tokens</th>
@@ -9,8 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of table.data; let i = index">
-      <td>{{ i + 1 }}</td>
+    <tr *ngFor="let data of table.data">
       <td>{{ data.action }}</td>
       <td>{{ data.numberOfTokens }}</td>
       <td>
