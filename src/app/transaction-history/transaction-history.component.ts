@@ -20,7 +20,6 @@ export class TransactionHistoryComponent implements OnInit {
     this.apiService
       .getTransactionHistory(this.userInfoService.getUserName())
       .subscribe((res) => {
-        console.log(res);
         this.transactionData = res;
       });
   }
