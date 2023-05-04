@@ -4,7 +4,6 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { ApiService } from '../shared/services/api.service';
 import { TransactionHistory } from '../shared/models/model';
 import { UserInfoService } from '../shared/services/user-info.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-transaction-history',
@@ -21,6 +20,7 @@ export class TransactionHistoryComponent implements OnInit {
     this.apiService
       .getTransactionHistory(this.userInfoService.getUserName())
       .subscribe((res) => {
+        console.log(res);
         this.transactionData = res;
       });
   }

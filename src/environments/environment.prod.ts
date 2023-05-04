@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: ''
+  apiUrl: 'https://ledger-server-test.onrender.com/api/v1',
 };
