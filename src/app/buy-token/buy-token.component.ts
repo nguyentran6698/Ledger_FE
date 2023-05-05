@@ -3,7 +3,7 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -22,7 +22,7 @@ import { UserInfoService } from '../shared/services/user-info.service';
     NzButtonModule,
     NzInputNumberModule,
     NzMessageModule,
-    NzInputModule
+    NzInputModule,
   ],
   templateUrl: './buy-token.component.html',
   styleUrls: ['./buy-token.component.scss'],
@@ -36,22 +36,25 @@ export class BuyTokenComponent {
       nonNullable: true,
       validators: [Validators.required, Validators.min(1)],
     }),
-    totalPrice: new FormControl({
-      value: 0,
-      disabled: true
-    }, {
-      nonNullable: true
-    }),
+    totalPrice: new FormControl(
+      {
+        value: 0,
+        disabled: true,
+      },
+      {
+        nonNullable: true,
+      }
+    ),
     note: new FormControl('', {
-      nonNullable: true
-    })
+      nonNullable: true,
+    }),
   });
   readonly fixedCost = 0.25;
 
   updateTotalPrice(totalToken: number): void {
     this.buyTokenForm.patchValue({
-      totalPrice: totalToken * this.fixedCost
-    })
+      totalPrice: totalToken * this.fixedCost,
+    });
   }
 
   submit(): void {
@@ -66,11 +69,17 @@ export class BuyTokenComponent {
     }
     const { totalToken, totalPrice, note } = this.buyTokenForm.getRawValue();
     this.apiService
-      .buyToken(this.userInfoService.getUserName(), totalToken, note, totalPrice)
+      .buyToken(
+        this.userInfoService.getUserName(),
+        totalToken,
+        note,
+        totalPrice
+      )
       .subscribe((res) => {
         if (res.success) {
           this.nzMessage.success('Buy token successfully!!!');
           this.userInfoService.loadCurrentBalanceToken();
+          this.buyTokenForm.reset();
         }
       });
   }
